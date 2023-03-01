@@ -6,7 +6,8 @@
   "author": "ImLumi <mikesimon150@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon --exec babel-node src/server.js",
+    "start": "node build/server.js",
+    "dev": "nodemon --exec babel-node src/server.js",
     "build": "babel src/server.js --out-dir build"
   },
   "dependencies": {
