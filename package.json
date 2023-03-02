@@ -8,8 +8,7 @@
   "license": "MIT",
   "scripts": {
     "start": "node ./src/server.js",
-    "dev": "nodemon --exec babel-node ./src/server.js",
-    "build": "babel src/server.js --out-dir ./build"
+    "dev": "nodemon --exec babel-node ./src/server.js"
   },
   "dependencies": {
     "express": "^4.18.2",
