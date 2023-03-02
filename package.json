@@ -7,9 +7,9 @@
   "author": "ImLumi <mikesimon150@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node ./server.js",
+    "start": "node build/server.js",
     "dev": "nodemon --exec babel-node ./src/server.js",
-    "build": "babel src/server.js --out-dir ./build"
+    "build": "babel src/server.js --out-dir build"
   },
   "dependencies": {
     "express": "^4.18.2",
