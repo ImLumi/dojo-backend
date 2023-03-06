@@ -5,7 +5,7 @@ const topicSchema = new Schema({
   authorName: { type: String, required: true },
   author: { type: Schema.Types.ObjectId, required: true, ref: 'Author' },
   topic: { type: Schema.Types.ObjectId, required: true, ref: 'Topic' },
-});
+}, { timestamps: true });
 
 topicSchema.method('toClient', function () {
   const comment = this.toObject();
