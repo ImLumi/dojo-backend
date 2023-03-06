@@ -11,6 +11,7 @@ export default {
 
   async findOne(id) {
     const topic = await TopicModel.findById(id).populate('comments');
+    if (!topic) throw new HttpError('Topic is not found!', 400);
     return topic.toClient();
   },
 

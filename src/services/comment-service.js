@@ -4,7 +4,9 @@ import HttpError from '../utils/http-error';
 
 export default {
   async findOne(id) {
-    return CommentModel.findById(id).toClient();
+    const comment = await CommentModel.findById(id);
+    if (!comment) throw new HttpError('Topic is not found!', 400);
+    return comment.toClient();
   },
 
   async createOne({ topicId, ...payloads }) {
