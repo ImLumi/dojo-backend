@@ -1,14 +1,10 @@
-import express from 'express';
+import mongoose from 'mongoose';
+import app from './app';
 
-const app = express();
 const PORT = process.env.PORT || 3000;
-
-app.use(express.json());
-
-app.get('/', (req, res) => {
-  res.send({ message: 'hello cyclic :)' })
-});
+const DB_URI = process.env.MONGO_URI || 'mongodb://localhost:27000/dojo-wall';
+mongoose.connect(DB_URI);
 
 app.listen(PORT, () => {
-  console.log('Server is listening on ' + PORT + ' port')
-})
+  console.log(`Server is listening on ${PORT} port`);
+});

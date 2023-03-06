@@ -11,9 +11,13 @@
     "build": "babel src/server.js --out-dir build"
   },
   "dependencies": {
+    "@babel/runtime": "^7.21.0",
+    "cookie-parser": "^1.4.6",
+    "dayjs": "^1.11.7",
     "express": "^4.18.2",
     "mongoose": "^7.0.0",
-    "@babel/runtime": "^7.21.0"
+    "uuid": "^9.0.0",
+    "yup": "^1.0.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.21.0",
@@ -21,10 +25,11 @@
     "@babel/node": "^7.20.7",
     "@babel/preset-env": "^7.20.2",
     "babel-preset-airbnb": "^5.0.0",
-    "eslint": "^8.2.0",
+    "eslint": "^7.32.0 || ^8.2.0",
     "eslint-config-airbnb": "19.0.4",
+    "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin": "^1.0.1",
-    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-import": "^2.25.2",
     "nodemon": "^2.0.20"
   }
 }
