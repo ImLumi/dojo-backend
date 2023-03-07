@@ -24,8 +24,19 @@ export default {
 
   async createTopic(req, res, next) {
     try {
-      const topic = await topicService.createOne({ ...req.body, author: req.body.authorId });
+      const topic = await topicService.createOne(
+        { ...req.validatedBody, author: req.body.authorId },
+      );
       res.status(201).send(topic);
+    } catch (err) {
+      next(new HttpError(err.message, 400));
+    }
+  },
+
+  async updateTopic(req, res, next) {
+    try {
+      const topic = await topicService.updateOne(req.params.id, req.validatedBody);
+      res.status(200).send(topic);
     } catch (err) {
       next(new HttpError(err.message, 400));
     }

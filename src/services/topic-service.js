@@ -30,6 +30,12 @@ export default {
     return topic.toClient();
   },
 
+  async updateOne(id, payload) {
+    const update = await TopicModel.updateOne({ _id: '640784d4496dbce697337e09' }, payload);
+    if (update.matchedCount === 0) throw new HttpError('Topic is not found', 400);
+    return { updated: true };
+  },
+
   async deleteComment(id, commentId) {
     return TopicModel.updateOne({ _id: id }, { $pull: { comments: commentId } });
   },

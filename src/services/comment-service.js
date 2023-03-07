@@ -5,7 +5,7 @@ import HttpError from '../utils/http-error';
 export default {
   async findOne(id) {
     const comment = await CommentModel.findById(id);
-    if (!comment) throw new HttpError('Topic is not found!', 400);
+    if (!comment) throw new HttpError('Comment is not found!', 400);
     return comment.toClient();
   },
 
@@ -16,6 +16,12 @@ export default {
     await comment.save();
     await topicService.addComments(topicId, comment._id);
     return comment.toClient();
+  },
+
+  async updateOne(id, payload) {
+    const update = await CommentModel.updateOne({ _id: id }, payload);
+    if (update.matchedCount === 0) throw new HttpError('Comment is not found', 400);
+    return { updated: true };
   },
 
   async deleteOne(id, authorId) {

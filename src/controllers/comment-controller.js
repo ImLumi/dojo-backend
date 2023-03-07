@@ -14,8 +14,19 @@ export default {
 
   async createComment(req, res, next) {
     try {
-      const comment = await commentService.createOne({ ...req.body, author: req.body.authorId });
+      const comment = await commentService.createOne(
+        { ...req.validatedBody, author: req.body.authorId },
+      );
       res.status(201).send(comment);
+    } catch (err) {
+      next(new HttpError(err.message, 400));
+    }
+  },
+
+  async updateComment(req, res, next) {
+    try {
+      const comment = await commentService.updateOne(req.params.id, req.validatedBody);
+      res.status(200).send(comment);
     } catch (err) {
       next(new HttpError(err.message, 400));
     }

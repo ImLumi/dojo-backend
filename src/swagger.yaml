@@ -1,0 +1,301 @@
+paths:
+  /topics:
+    get:
+      tags:
+        - topics
+      summary: Az összes topic lekérése
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                example:
+                  [
+                    {
+                      "title": "What the fetch",
+                      "description": "",
+                      "authorName": "Alice",
+                      "author": "640650ff0c685baf225d152c",
+                      "comments": [
+                        "640651050c685baf225d1563",
+                      ],
+                      "createdAt": "2023-03-06T20:45:51.797Z",
+                      "updatedAt": "2023-03-06T20:45:59.586Z",
+                      "__v": 0,
+                      "id": "640650ff0c685baf225d122g"
+                    },
+                    {
+                      "title": "Intro",
+                      "description": "",
+                      "authorName": "Bob",
+                      "author": "640650ff0c685baf225d152c",
+                      "comments": [
+                        "640651050c685baf225d1533",
+                        "640651070c685baf225d153a"
+                      ],
+                      "createdAt": "2023-03-06T20:45:51.797Z",
+                      "updatedAt": "2023-03-06T20:45:59.586Z",
+                      "__v": 0,
+                      "id": "640650ff0c685baf225d152e"
+                    }
+                  ]
+    post:
+      tags:
+        - topics
+      summary: Topic készítése
+      description: Topic készítéséhez a `title` és az `authorName` kötelező, a `description` opcionális.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example:
+                {
+                  "title": Topic title (max 200 karakter),
+                  "authorName": "Béla",
+                  "description": valami,
+                }
+      responses:
+        201:
+          description: sikeres művelet
+          content:
+            application/json:
+              schema:
+                example:
+                  {
+                    "title": "Help me!",
+                    "description": "",
+                    "authorName": "Alice",
+                    "author": "6407903561be75e4b311df4e",
+                    "comments": [],
+                    "createdAt": "2023-03-07T19:27:49.055Z",
+                    "updatedAt": "2023-03-07T19:27:49.055Z",
+                    "__v": 0,
+                    "id": "6407903561be75e4b311df50"
+                  }
+
+  /topics/{topicId}:
+    get:
+      tags:
+        - topics
+      summary: Visszaadja az adott topic-ot az összes commenttel
+      parameters:
+        - in: path
+          name: topicId
+          schema:
+            type: string
+            example: 64065782a4253f080505d9e7
+          required: true
+          description: 12 byte hosszú string
+      description: Egy topicot ad vissza, ami tartalmazza az összes hozzátartozó comment-et is.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                example:
+                  {
+                    "title": "Intro",
+                    "description": "",
+                    "authorName": "Bence",
+                    "author": "64065782a4253f080505d9e5",
+                    "comments": [
+                      {
+                        "content": "hello bello",
+                        "authorName": "Alice",
+                        "author": "64065787a4253f080505d9ea",
+                        "topic": "64065782a4253f080505d9e7",
+                        "createdAt": "2023-03-06T21:13:43.766Z",
+                        "updatedAt": "2023-03-06T21:13:43.766Z",
+                        "__v": 0,
+                        "id": "64065787a4253f080505d9ed"
+                      },
+                      {
+                        "content": "hi",
+                        "authorName": "Bob",
+                        "author": "22465787a4253f080505d113",
+                        "topic": "64065782a4253f080505d9e7",
+                        "createdAt": "2023-03-06T21:13:44.361Z",
+                        "updatedAt": "2023-03-06T21:13:44.361Z",
+                        "__v": 0,
+                        "id": "64065788a4253f080505d9f4"
+                      },
+                      {
+                        "content": "ciao",
+                        "authorName": "Wilson",
+                        "author": "45065787a4253f080505dg33",
+                        "topic": "64065782a4253f080505d9e7",
+                        "createdAt": "2023-03-06T21:13:44.724Z",
+                        "updatedAt": "2023-03-06T21:13:44.724Z",
+                        "__v": 0,
+                        "id": "64065788a4253f080505d9fb"
+                      }
+                    ],
+                    "createdAt": "2023-03-06T21:13:38.062Z",
+                    "updatedAt": "2023-03-06T21:16:07.283Z",
+                    "__v": 0,
+                    "id": "64065782a4253f080505d9e7"
+                  }
+    patch:
+      tags:
+        - topics
+      summary: topic módosítása
+      description: A topic-ot csak a szerző (author) tudja módosítani, és csak 5 percig utána 403-as hibakóddal tér vissza.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example:
+                {
+                  "title": Bejegyzés neve (max 200 karakter),
+                  "description": leírás,
+                }
+      responses:
+        200:
+          description: sikeres művelet
+          content:
+            application/json:
+              schema:
+                example:
+                  {
+                    updated: true
+                  }
+        403:
+          content:
+            application/json:
+              schema:
+                example:
+                  {
+                    "error": "Access to that resource is forbidden."
+                  }
+    delete:
+      tags:
+        - topics
+      summary: topic törlése
+      description: A topic-ot csak a szerző (author) tudja törölni, és csak 5 percig utána 403-as hibakóddal tér vissza.
+      responses:
+        204:
+          description:
+            OK - sikeres törlés
+        403:
+          content:
+            application/json:
+              schema:
+                example:
+                  {
+                    "error": "Access to that resource is forbidden."
+                  }
+  /comments:
+    post:
+      tags:
+        - comments
+      summary: comment készítés
+      description: A comment készítéséhez `content`, `authorName` és a `topicId` is kötelező.
+        A topicId annak a topic-nak az id-ja amihez a comment tartozni fog.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example:
+                {
+                  "content": "A comment tartalma...",
+                  "authorName": "Béla",
+                  "topicId": "64065782a4253f080505d9e7",
+                }
+      responses:
+        201:
+          description: sikeres művelet
+          content:
+            application/json:
+              schema:
+                example:
+                  {
+                    "content": "A comment tartalma...",
+                    "authorName": "Béla",
+                    "author": "640792fd724dcfa861f59641",
+                    "topic": "64065782a4253f080505d9e7",
+                    "createdAt": "2023-03-07T19:39:41.815Z",
+                    "updatedAt": "2023-03-07T19:39:41.815Z",
+                    "__v": 0,
+                    "id": "640792d193c3fccfff8faedb"
+                  }
+
+  /comments/{commentId}:
+    get:
+      tags:
+        - comments
+      summary: Visszaadja az adott commentet.
+      parameters:
+        - in: path
+          name: topicId
+          schema:
+            type: string
+            example: 640792fd724dcfa861f59644
+          required: true
+          description: 12 byte hosszú string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                example:
+                  {
+                    "content": "Lorem ipsum dolor sit amet",
+                    "authorName": "Bob",
+                    "author": "640792fd724dcfa861f59641",
+                    "topic": "640792d193c3fccfff8faedb",
+                    "createdAt": "2023-03-07T19:39:41.815Z",
+                    "updatedAt": "2023-03-07T19:39:41.815Z",
+                    "__v": 0,
+                    "id": "640792fd724dcfa861f59644"
+                  }
+    patch:
+      tags:
+        - comments
+      summary: Comment módosítása
+      description: A comment-et csak a szerző (author) tudja módosítani, és csak 5 percig utána 403-as hibakóddal tér vissza.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example:
+                {
+                  "content": "modified content..."
+                }
+      responses:
+        200:
+          description: sikeres művelet
+          content:
+            application/json:
+              schema:
+                example:
+                  {
+                    updated: true
+                  }
+        403:
+          content:
+            application/json:
+              schema:
+                example:
+                  {
+                    "error": "Access to that resource is forbidden."
+                  }
+    delete:
+      tags:
+        - comments
+      summary: Comment törlése
+      description: A comment-et csak a szerző (author) tudja törölni, és csak 5 percig utána 403-as hibakóddal tér vissza.
+      responses:
+        204:
+          description:
+            OK - sikeres törlés
+        403:
+          content:
+            application/json:
+              schema:
+                example:
+                  {
+                    "error": "Access to that resource is forbidden."
+                  }

@@ -1,4 +1,5 @@
-import { Schema, model } from 'mongoose';
+/* eslint-disable no-param-reassign */
+import { Schema, model, isValidObjectId } from 'mongoose';
 
 const topicSchema = new Schema({
   title: { type: String, maxLength: 100, required: true },
@@ -12,6 +13,13 @@ topicSchema.method('toClient', function () {
   const topic = this.toObject();
   topic.id = topic._id;
   delete topic._id;
+  if (!isValidObjectId(topic.comments[0])) {
+    topic.comments.forEach((comment) => {
+      if (!comment?._id) return;
+      comment.id = comment._id;
+      delete comment._id;
+    });
+  }
   return topic;
 });
 
