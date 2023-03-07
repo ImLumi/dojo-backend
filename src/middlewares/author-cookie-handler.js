@@ -22,8 +22,8 @@ export default {
       const cookieId = (!oldCookie) ? uuid() : JSON.parse(oldCookie).author;
       const author = await authorServices.createOrUpdate(cookieId);
       res.cookie(cookieName, JSON.stringify({ author: cookieId }), {
-        someSite: 'none',
-        secure: false,
+        sameSite: 'none',
+        secure: true,
         httpOnly: true,
         expires: dayjs().add(6, 'minutes').toDate(),
       });
