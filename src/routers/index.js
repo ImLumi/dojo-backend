@@ -1,4 +1,4 @@
-import comments from './comment-routes';
-import topics from './topic-routes';
+import comments from './comments-routes';
+import topics from './topics-routes';
 
 export { comments, topics };

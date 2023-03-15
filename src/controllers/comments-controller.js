@@ -1,5 +1,5 @@
 import HttpError from '../utils/http-error';
-import commentService from '../services/comment-service';
+import commentService from '../services/comments-service';
 
 export default {
   async findComment(req, res, next) {

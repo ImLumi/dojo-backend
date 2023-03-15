@@ -1,5 +1,5 @@
 import HttpError from '../utils/http-error';
-import topicService from '../services/topic-service';
+import topicService from '../services/topics-service';
 
 export default {
   async findAllTopic(req, res, next) {

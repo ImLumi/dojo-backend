@@ -1,7 +1,7 @@
 import express from 'express';
-import topicController from '../controllers/topic-controller';
+import topicController from '../controllers/topics-controller';
 import validatorHandler from '../middlewares/validator-handler';
-import { create, update } from '../validation-schemas/topic-validation-schema';
+import { create, update } from '../validation-schemas/topics-validation-schema';
 import authorCookieHandler from '../middlewares/author-cookie-handler';
 
 const router = express.Router();

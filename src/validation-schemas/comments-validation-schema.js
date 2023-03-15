@@ -9,6 +9,9 @@ export const create = yup.object({
 });
 
 export const update = yup.object({
+  params: yup.object({
+    id: yup.string().length(24).required(),
+  }),
   body: yup.object({
     content: yup.string().min(1).max(1000).required(),
     topicId: yup.string().strip(),

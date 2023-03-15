@@ -8,7 +8,7 @@ export default {
   async createOrUpdate(cookieId) {
     let author = await AuthorModel.findOne({ cookieId });
     if (!author) author = new AuthorModel({ cookieId });
-    author.updatedAt = new Date();
+    author.expireAt = new Date();
     await author.save();
     return author;
   },

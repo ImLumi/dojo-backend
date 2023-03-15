@@ -1,7 +1,7 @@
 import express from 'express';
-import commentController from '../controllers/comment-controller';
+import commentController from '../controllers/comments-controller';
 import validatorHandler from '../middlewares/validator-handler';
-import { create, update } from '../validation-schemas/comment-validation-schema';
+import { create, update } from '../validation-schemas/comments-validation-schema';
 import authorCookieHandler from '../middlewares/author-cookie-handler';
 
 const router = express.Router();

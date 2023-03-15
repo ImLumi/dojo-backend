@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid';
 import dayjs from 'dayjs';
-import authorServices from '../services/author-services';
+import authorServices from '../services/authors-service';
 import AccessForbiddenHttpError from '../utils/access-forbidden-http-error';
 
 export default {

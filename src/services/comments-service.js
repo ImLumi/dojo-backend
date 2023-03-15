@@ -1,5 +1,5 @@
 import CommentModel from '../models/comment-model';
-import topicService from './topic-service';
+import topicService from './topics-service';
 import HttpError from '../utils/http-error';
 
 export default {
